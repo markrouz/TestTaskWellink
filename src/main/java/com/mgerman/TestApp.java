@@ -46,6 +46,9 @@ public class TestApp {
         Transaction tx = session.beginTransaction();
 
         try {
+
+            //todo понять почему айдишники все равно инкрементируются, а не сбрасываются
+
             CoffeeEntity testEntity = new CoffeeEntity();
             testEntity.setName("black coffee");
             testEntity.setDisabled(false);
