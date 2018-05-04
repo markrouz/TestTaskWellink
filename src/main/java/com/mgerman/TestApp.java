@@ -52,7 +52,7 @@ public class TestApp {
             CoffeeEntity testEntity = new CoffeeEntity();
             testEntity.setName("black coffee");
             testEntity.setDisabled(false);
-            testEntity.setPrice(1000.0);//todo похоже что BigInteger это такое себе
+            testEntity.setPrice(1000.0);
 
             CoffeeEntity coffeeEntity = new CoffeeEntity();
             coffeeEntity.setName("dadad");
