@@ -13,7 +13,6 @@ public class OrderPositionEntity {
 
     //todo non-argument constructor??
     //todo serializable???
-    //todo @GeneratedValue??
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +55,7 @@ public class OrderPositionEntity {
         return result;
     }
 
-    @ManyToMany(mappedBy = "orderPositions")
+    @ManyToMany(mappedBy = "orderPositions") //так-то наверн надо ManyToOne ???
     public Collection<OrderEntity> getOrders() {
         return orders;
     }

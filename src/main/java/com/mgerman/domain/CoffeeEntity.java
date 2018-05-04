@@ -15,7 +15,6 @@ public class CoffeeEntity {
 
     //todo non-argument constructor??
     //todo serializable???
-    //todo @GeneratedValue??
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,7 +17,6 @@ public class OrderEntity {
 
     //todo non-argument constructor??
     //todo serializable???
-    //todo @GeneratedValue??
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,7 +96,7 @@ public class OrderEntity {
         return result;
     }
 
-    @ManyToMany(cascade = { CascadeType.ALL })//todo шо це такое
+    @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "order_position_in_order",
             joinColumns = { @JoinColumn(name = "order_id") },
