@@ -52,12 +52,12 @@ public class TestApp {
             CoffeeEntity testEntity = new CoffeeEntity();
             testEntity.setName("black coffee");
             testEntity.setDisabled(false);
-            testEntity.setPrice(new BigInteger("1000"));//todo похоже что BigInteger это такое себе
+            testEntity.setPrice(1000.0);//todo похоже что BigInteger это такое себе
 
             CoffeeEntity coffeeEntity = new CoffeeEntity();
             coffeeEntity.setName("dadad");
             coffeeEntity.setDisabled(false);
-            coffeeEntity.setPrice(new BigInteger("1488"));
+            coffeeEntity.setPrice(1488.0);
 
             session.persist(testEntity);
             session.persist(coffeeEntity);
@@ -70,7 +70,7 @@ public class TestApp {
             orderEntity.setCustomerName("Mark");
             orderEntity.setAddress("Demakova");
             orderEntity.setDate(new Date());
-            orderEntity.setPrice(new BigInteger("1000"));
+            orderEntity.setPrice(1000.0);
 
             List<OrderPositionEntity> orderPositions = new ArrayList<OrderPositionEntity>();
             orderPositions.add(orderPositionEntity);

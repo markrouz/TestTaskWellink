@@ -1,7 +1,6 @@
 package com.mgerman.domain;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,7 +11,7 @@ public class OrderEntity {
     private Date date;
     private String customerName;
     private String address;
-    private BigInteger price;
+    private Double price;
     private Collection<OrderPositionEntity> orderPositions;
 
     //todo non-argument constructor??
@@ -62,11 +61,11 @@ public class OrderEntity {
 
     @Basic
     @Column(name = "price", nullable = false, precision = 2)
-    public BigInteger getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigInteger price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

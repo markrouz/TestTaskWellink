@@ -1,7 +1,6 @@
 package com.mgerman.domain;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Collection;
 
 @Entity
@@ -9,7 +8,7 @@ import java.util.Collection;
 public class CoffeeEntity {
     private int id;
     private String name;
-    private BigInteger price;
+    private Double price;
     private boolean disabled;
     private Collection<OrderPositionEntity> orderPositionsInCoffee;
 
@@ -39,11 +38,11 @@ public class CoffeeEntity {
 
     @Basic
     @Column(name = "price", nullable = false, precision = 2)
-    public BigInteger getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigInteger price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
