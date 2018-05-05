@@ -1,16 +1,16 @@
-package com.mgerman.domain;
+package com.mgerman.internetcafe.domain;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "coffee_types", schema = "public", catalog = "internet_cafe")
-public class CoffeeEntity {
+public class CoffeeEntity implements DbEntity {
     private int id;
     private String name;
     private Double price;
     private boolean disabled;
-    private Collection<OrderPositionEntity> orderPositionsInCoffee;
+    private List<OrderPositionEntity> orderPositionsInCoffee;
 
     //todo non-argument constructor??
     //todo serializable???
@@ -81,11 +81,11 @@ public class CoffeeEntity {
     }
 
     @OneToMany(mappedBy = "coffee")
-    public Collection<OrderPositionEntity> getOrderPositionsInCoffee() {
+    public List<OrderPositionEntity> getOrderPositionsInCoffee() {
         return orderPositionsInCoffee;
     }
 
-    public void setOrderPositionsInCoffee(Collection<OrderPositionEntity> orderPositionsById) {
+    public void setOrderPositionsInCoffee(List<OrderPositionEntity> orderPositionsById) {
         this.orderPositionsInCoffee = orderPositionsById;
     }
 }

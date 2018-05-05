@@ -1,18 +1,18 @@
-package com.mgerman.domain;
+package com.mgerman.internetcafe.domain;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders", schema = "public", catalog = "internet_cafe")
-public class OrderEntity {
+public class OrderEntity implements DbEntity {
     private int id;
     private Date date;
     private String customerName;
     private String address;
     private Double price;
-    private Collection<OrderPositionEntity> orderPositions;
+    private List<OrderPositionEntity> orderPositions;
 
     //todo non-argument constructor??
     //todo serializable???
@@ -101,11 +101,11 @@ public class OrderEntity {
             joinColumns = { @JoinColumn(name = "order_id") },
             inverseJoinColumns = { @JoinColumn(name = "order_position_id") }
     )
-    public Collection<OrderPositionEntity> getOrderPositions() {
+    public List<OrderPositionEntity> getOrderPositions() {
         return orderPositions;
     }
 
-    public void setOrderPositions(Collection<OrderPositionEntity> orderPositions) {
+    public void setOrderPositions(List<OrderPositionEntity> orderPositions) {
         this.orderPositions = orderPositions;
     }
 }

@@ -1,14 +1,15 @@
-package com.mgerman.domain;
+package com.mgerman.internetcafe.domain;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
+
 
 @Entity
 @Table(name = "order_positions", schema = "public", catalog = "internet_cafe")
-public class OrderPositionEntity {
+public class OrderPositionEntity implements DbEntity {
     private int id;
     private int numberOfCups;
-    private Collection<OrderEntity> orders;
+    private List<OrderEntity> orders;
     private CoffeeEntity coffee;
 
     //todo non-argument constructor??
@@ -55,12 +56,17 @@ public class OrderPositionEntity {
         return result;
     }
 
-    @ManyToMany(mappedBy = "orderPositions") //так-то наверн надо ManyToOne ???
-    public Collection<OrderEntity> getOrders() {
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "order_position_in_order",
+            joinColumns = { @JoinColumn(name = "order_position_id") },
+            inverseJoinColumns = { @JoinColumn(name = "order_id") }
+    )
+    public List<OrderEntity> getOrders() {
         return orders;
     }
 
-    public void setOrders(Collection<OrderEntity> orderPositionInOrders) {
+    public void setOrders(List<OrderEntity> orderPositionInOrders) {
         this.orders = orderPositionInOrders;
     }
 
