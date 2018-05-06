@@ -67,3 +67,11 @@ ALTER TABLE "order_positions" ADD CONSTRAINT "order_position_fk0" FOREIGN KEY ("
 ALTER TABLE "order_position_in_order" ADD CONSTRAINT "order_position_in_order_fk0" FOREIGN KEY ("order_id") REFERENCES "orders"("id");
 ALTER TABLE "order_position_in_order" ADD CONSTRAINT "order_position_in_order_fk1" FOREIGN KEY ("order_position_id") REFERENCES "order_positions"("id");
 
+
+
+INSERT INTO coffee_types(
+            name, price, disabled)
+    VALUES ('americano', 90, false);
+INSERT INTO coffee_types(
+            name, price, disabled)
+    VALUES ('espresso', 100, false);

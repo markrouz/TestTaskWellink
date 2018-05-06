@@ -106,6 +106,24 @@
             <artifactId>cglib</artifactId>
             <version>2.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.richfaces.ui/richfaces-components-ui -->
+<!--        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
+            <version>4.3.7.Final</version>
+        </dependency>-->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.richfaces.core/richfaces-core-impl &ndash;&gt;
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-impl</artifactId>
+            <version>4.3.7.Final</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
+            <version>4.5.8.Final</version>
+        </dependency>
+
     </dependencies>
 
 

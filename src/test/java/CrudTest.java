@@ -3,6 +3,7 @@ import com.mgerman.internetcafe.domain.CoffeeEntity;
 import com.mgerman.internetcafe.domain.DbEntity;
 import com.mgerman.internetcafe.domain.OrderEntity;
 import com.mgerman.internetcafe.domain.OrderPositionEntity;
+import com.mgerman.internetcafe.service.DbEntityService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -25,18 +26,19 @@ public class CrudTest {
         simpleBlackCoffee.setDisabled(false);
 
         CoffeeEntity americanoCoffee = new CoffeeEntity();
-        americanoCoffee.setName("americano");
+        americanoCoffee.setName("BlackCoffeeWithMilk");
         americanoCoffee.setPrice(150.0);
         americanoCoffee.setDisabled(false);
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-        EntityDaoHibernateImpl entityDaoHibernate = (EntityDaoHibernateImpl) applicationContext.getBean("entityDaoHibernateImpl");
+        //EntityDaoHibernateImpl entityDaoHibernate = (EntityDaoHibernateImpl) applicationContext.getBean("entityDaoHibernateImpl");
+        DbEntityService dbEntityService = (DbEntityService) applicationContext.getBean("dbEntityService");
         //todo попачечно сделать?
-        entityDaoHibernate.save(simpleBlackCoffee);
-        entityDaoHibernate.save(americanoCoffee);
+        dbEntityService.save(simpleBlackCoffee);
+        dbEntityService.save(americanoCoffee);
 
         //todo и все таки это такое себе (но зато типа без дублирования)
-        List<DbEntity> coffeeEntities = entityDaoHibernate.getAll("CoffeeEntity");
+        List<DbEntity> coffeeEntities = dbEntityService.getAll("CoffeeEntity");
         assertNotNull(coffeeEntities);
         assertEquals(2, coffeeEntities.size());
         assertEquals(simpleBlackCoffee.getName(), ((CoffeeEntity) coffeeEntities.get(0)).getName());
@@ -55,19 +57,19 @@ public class CrudTest {
         List<OrderPositionEntity> orderPositions = new ArrayList<OrderPositionEntity>();
         orderPositions.add(orderPositionEntity);
         orderEntity.setOrderPositions(orderPositions);
-        entityDaoHibernate.save(orderEntity);
+        dbEntityService.save(orderEntity);
 
-        List<DbEntity> orderEntitiesFromDb = entityDaoHibernate.getAll("OrderEntity");
+        List<DbEntity> orderEntitiesFromDb = dbEntityService.getAll("OrderEntity");
         assertEquals(orderEntity.getCustomerName(), ((OrderEntity)orderEntitiesFromDb.get(0)).getCustomerName());
 
-        List<DbEntity> orderPositionsFromDb = entityDaoHibernate.getAll("OrderPositionEntity");
+        List<DbEntity> orderPositionsFromDb = dbEntityService.getAll("OrderPositionEntity");
         assertEquals(orderEntity.getOrderPositions().get(0).getCoffee().getName(), ((OrderPositionEntity)orderPositionsFromDb.get(0)).getCoffee().getName());
 
-        entityDaoHibernate.delete(orderEntity);
+        dbEntityService.delete(orderEntity);
 
-        entityDaoHibernate.delete(simpleBlackCoffee);
-        entityDaoHibernate.delete(americanoCoffee);
-        coffeeEntities = entityDaoHibernate.getAll("CoffeeEntity");
+        dbEntityService.delete(simpleBlackCoffee);
+        dbEntityService.delete(americanoCoffee);
+        coffeeEntities = dbEntityService.getAll("CoffeeEntity");
         assertEquals(0, coffeeEntities.size());
 
     }
