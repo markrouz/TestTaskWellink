@@ -31,7 +31,6 @@
                 <prop key="format_sql">true</prop>
                 <prop key="use_sql_comments">true</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <!--<prop key="hibernate.current_session_context_class">thread</prop>-->
             </props>
         </property>
     </bean>

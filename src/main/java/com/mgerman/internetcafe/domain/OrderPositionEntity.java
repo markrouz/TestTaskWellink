@@ -9,8 +9,9 @@ import java.util.List;
 public class OrderPositionEntity implements DbEntity {
     private int id;
     private int numberOfCups;
-    private List<OrderEntity> orders;
+    private List<OrderEntity> orders;// todo может стоит переделать в Set?
     private CoffeeEntity coffee;
+    private double orderPositionPrice; // todo незамапленное поле??
 
     //todo non-argument constructor??
     //todo serializable???
@@ -56,12 +57,13 @@ public class OrderPositionEntity implements DbEntity {
         return result;
     }
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    /*@ManyToMany(cascade = { CascadeType.ALL})
     @JoinTable(
             name = "order_position_in_order",
             joinColumns = { @JoinColumn(name = "order_position_id") },
             inverseJoinColumns = { @JoinColumn(name = "order_id") }
-    )
+    )*/
+    @ManyToMany(mappedBy = "orderPositions")
     public List<OrderEntity> getOrders() {
         return orders;
     }
@@ -78,5 +80,14 @@ public class OrderPositionEntity implements DbEntity {
 
     public void setCoffee(CoffeeEntity coffeeTypesByCoffeeTypeId) {
         this.coffee = coffeeTypesByCoffeeTypeId;
+    }
+
+    @Transient
+    public double getOrderPositionPrice() {
+        return orderPositionPrice;
+    }
+
+    public void setOrderPositionPrice(double orderPositionPrice) {
+        this.orderPositionPrice = orderPositionPrice;
     }
 }

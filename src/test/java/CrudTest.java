@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 //todo тестовая база?
+//todo ну это плохой тест, его надо на отдельной базе делать
 public class CrudTest {
 
     @Test
@@ -40,7 +41,7 @@ public class CrudTest {
         //todo и все таки это такое себе (но зато типа без дублирования)
         List<DbEntity> coffeeEntities = dbEntityService.getAll("CoffeeEntity");
         assertNotNull(coffeeEntities);
-        assertEquals(2, coffeeEntities.size());
+        assertEquals(4, coffeeEntities.size());
         assertEquals(simpleBlackCoffee.getName(), ((CoffeeEntity) coffeeEntities.get(0)).getName());
         assertEquals(americanoCoffee.getName(), ((CoffeeEntity) coffeeEntities.get(1)).getName());
 

@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 //todo sql скрипт немного переделать (делать схему, а не новую бд)
@@ -24,6 +23,10 @@ public class OrderManager {
     private DbEntityService dbEntityService;
     private OrderEntity order;// например <h:inputText value="#{OrderManger.order.customerName}
     private List<OrderPositionEntity> availablePositions;
+    private double orderPositionsPrice;
+    private int n = 3;
+    private double deliveryPrice = 50;
+    private double x = 100;
 
     //инициализируем позиции заказа
     @PostConstruct
@@ -49,13 +52,31 @@ public class OrderManager {
             }
         }
         order.setOrderPositions(orderPositions);
+        order.setPrice(calculateOrderPrice());
+        order.setDate(new Date());
         return "orderInfo.xhtml";
     }
 
-    private void showOrderPositions() {
-
+    public String saveOrder() {
+        dbEntityService.save(order);
+        return "confirmOrder";
     }
 
+    private double calculateOrderPrice() {
+        calculateOrderPositionsPrice();
+        return orderPositionsPrice < x ? orderPositionsPrice + deliveryPrice : orderPositionsPrice;
+    }
+
+    private void calculateOrderPositionsPrice() {
+        orderPositionsPrice = 0;
+        for(OrderPositionEntity orderPosition: order.getOrderPositions()) {
+            double coffeePrice = orderPosition.getCoffee().getPrice();
+            int numberOfCups = orderPosition.getNumberOfCups();
+            double positionPrice = numberOfCups * coffeePrice - (numberOfCups / n) * coffeePrice;
+            orderPosition.setOrderPositionPrice(positionPrice);
+            orderPositionsPrice += positionPrice;
+        }
+    }
 
     //getters and setters
     public List<OrderPositionEntity> getAvailablePositions() {
@@ -64,5 +85,46 @@ public class OrderManager {
 
     public void setAvailablePositions(List<OrderPositionEntity> availablePositions) {
         this.availablePositions = availablePositions;
+    }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderEntity order) {
+        this.order = order;
+    }
+
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
+
+    public double getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(double deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getOrderPositionsPrice() {
+        return orderPositionsPrice;
+    }
+
+    public void setOrderPositionsPrice(double orderPositionsPrice) {
+        this.orderPositionsPrice = orderPositionsPrice;
     }
 }

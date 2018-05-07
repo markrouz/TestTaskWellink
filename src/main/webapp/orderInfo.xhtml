@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8' ?>
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:a4j = "http://richfaces.org/a4j"
+      xmlns:rich = "http://richfaces.org/rich">
+<h:head>
+    <title>Internet cafe</title>
+</h:head>
+
+<h:body>
+    <h:form>
+
+        <f:facet name = "header">
+            <h:outputText value = "Доставка" />
+        </f:facet>
+
+        <rich:column>
+            <h:outputText value = "ФИО: "/>
+            <h:inputText value="#{orderManager.order.customerName}"/>
+            <h:outputText value="Адрес:"/>
+            <h:inputText value="#{orderManager.order.address}"/>
+        </rich:column>
+
+        <h:commandButton value="Заказать" action="#{orderManager.saveOrder}"/>
+
+        <rich:dataTable value = "#{orderManager.order.orderPositions}" var = "orderPosition">
+
+            <rich:column>
+                <f:facet name = "header">Название</f:facet>
+                <h:outputText value = "#{orderPosition.coffee.name}"/>
+            </rich:column>
+
+            <rich:column>
+                <f:facet name = "header">Цена</f:facet>
+                <h:outputText value = "#{orderPosition.coffee.price}"/>
+            </rich:column>
+
+            <rich:column>
+                <f:facet name="header">Количество</f:facet>
+                <h:outputText value="#{orderPosition.numberOfCups}"/>
+            </rich:column>
+
+            <rich:column>
+                <f:facet name="header">Всего</f:facet>
+                <h:outputText value="#{orderPosition.orderPositionPrice}"/>
+            </rich:column>
+
+        </rich:dataTable>
+    </h:form>
+    <h:outputText value="Сумма: #{orderManager.orderPositionsPrice}"/>
+    <h:outputText value="Доставка: #{orderManager.orderPositionsPrice lt orderManager.x ? orderManager.deliveryPrice : 'Бесплатно'}"/>
+    <h:outputText value="Всего: #{orderManager.order.price}"/>
+</h:body>
+</html>

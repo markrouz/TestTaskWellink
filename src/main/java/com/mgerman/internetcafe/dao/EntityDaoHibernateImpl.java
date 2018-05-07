@@ -26,7 +26,7 @@ public class EntityDaoHibernateImpl implements EntityDao {
     @Override
     public void save(DbEntity dbEntity) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(dbEntity);
+        session.saveOrUpdate(dbEntity);
     }
 
     @Override
