@@ -5,52 +5,103 @@
       xmlns:ui = "http://java.sun.com/jsf/facelets"
       xmlns:a4j = "http://richfaces.org/a4j"
       xmlns:rich = "http://richfaces.org/rich">
-<h:head>
-    <title>Internet cafe</title>
-</h:head>
 
-<h:body>
-    <h:form>
+<h:outputStylesheet>
+    .col1,
+    .wform td {
+        vertical-align: top;
+    }
 
-        <f:facet name = "header">
-            <h:outputText value = "Доставка" />
-        </f:facet>
+    .col2 {
+        float: right;
+    }
 
-        <rich:column>
-            <h:outputText value = "ФИО: "/>
-            <h:inputText value="#{orderManager.order.customerName}"/>
-            <h:outputText value="Адрес:"/>
-            <h:inputText value="#{orderManager.order.address}"/>
-        </rich:column>
+    .wizard {
+        width: 400px;
+    }
 
-        <h:commandButton value="Заказать" action="#{orderManager.saveOrder}"/>
+    .wfcol1 {
+        text-align: right;
+        white-space: nowrap;
+    }
 
-        <rich:dataTable value = "#{orderManager.order.orderPositions}" var = "orderPosition">
+    .s1row td {
+        height: 30px;
+    }
 
-            <rich:column>
-                <f:facet name = "header">Название</f:facet>
-                <h:outputText value = "#{orderPosition.coffee.name}"/>
-            </rich:column>
+    .navPanel {
+        position: absolute;
+        bottom: 0;
+        height: 30px;
+        margin: 0;
+        padding: 2px;
+    }
+</h:outputStylesheet>
 
-            <rich:column>
-                <f:facet name = "header">Цена</f:facet>
-                <h:outputText value = "#{orderPosition.coffee.price}"/>
-            </rich:column>
 
-            <rich:column>
-                <f:facet name="header">Количество</f:facet>
-                <h:outputText value="#{orderPosition.numberOfCups}"/>
-            </rich:column>
+    <h:head>
+        <title>Internet cafe</title>
+    </h:head>
 
-            <rich:column>
-                <f:facet name="header">Всего</f:facet>
-                <h:outputText value="#{orderPosition.orderPositionPrice}"/>
-            </rich:column>
+    <h:body>
+        <h:form>
 
-        </rich:dataTable>
-    </h:form>
-    <h:outputText value="Сумма: #{orderManager.orderPositionsPrice}"/>
-    <h:outputText value="Доставка: #{orderManager.orderPositionsPrice lt orderManager.x ? orderManager.deliveryPrice : 'Бесплатно'}"/>
-    <h:outputText value="Всего: #{orderManager.order.price}"/>
-</h:body>
+            <div style="position: relative; display: inline-block" >
+
+                <rich:panel header="Ваш заказ">
+
+                    <rich:dataTable value = "#{orderManager.order.orderPositions}" var = "orderPosition">
+
+                        <rich:column>
+                            <f:facet name = "header">Название</f:facet>
+                            <h:outputText value = "#{orderPosition.coffee.name}"/>
+                        </rich:column>
+
+                        <rich:column>
+                            <f:facet name = "header">Цена</f:facet>
+                            <h:outputText value = "#{orderPosition.coffee.price}"/>
+                        </rich:column>
+
+                        <rich:column>
+                            <f:facet name="header">Количество</f:facet>
+                            <h:outputText value="#{orderPosition.numberOfCups}"/>
+                        </rich:column>
+
+                        <rich:column>
+                            <f:facet name="header">Всего</f:facet>
+                            <h:outputText value="#{orderPosition.orderPositionPrice}"/>
+                        </rich:column>
+
+                    </rich:dataTable>
+
+                    <!--<div style="float: right;" >-->
+                        <h:outputText style="float: right; font-size: large" value="Сумма: #{orderManager.orderPositionsPrice}"/>
+                        <br/>
+                        <h:outputText style="float: right; font-size: large" value="Доставка: #{orderManager.orderPositionsPrice lt orderManager.x ? orderManager.deliveryPrice : 'Бесплатно'}"/>
+                        <br/>
+                        <h:outputText style="float: right; font-size: large" value="Всего: #{orderManager.order.price}"/>
+                        <br/>
+                        <br/>
+                    <!--</div>-->
+                </rich:panel>
+
+                <rich:panel header="Доставка">
+                    <h:panelGrid rowClasses="s1row" columns="3" columnClasses="wfcol1,wfcol2,wfcol3">
+                        <h:outputText value="ФИО:" />
+                        <h:inputText id="fn" value="#{orderManager.order.customerName}" label="ФИО" required="true" requiredMessage="Введите ФИО!" />
+                        <rich:message for="fn"/>
+
+                        <h:outputText value="Адрес:" />
+                        <h:inputText id="ln" value="#{orderManager.order.address}" label="Адрес" required="true" requiredMessage="Введите адрес!" />
+                        <rich:message for="ln" />
+
+                        <div class="navPanel">
+                            <h:commandButton style="float: right; height: 20px"  value="Заказать" action="#{orderManager.saveOrder}"/>
+                        </div>
+                    </h:panelGrid>
+                </rich:panel>
+            </div>
+
+        </h:form>
+    </h:body>
 </html>

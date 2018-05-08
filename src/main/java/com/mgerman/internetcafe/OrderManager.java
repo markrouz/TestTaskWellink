@@ -24,15 +24,15 @@ public class OrderManager {
 
     @Autowired
     private DbEntityService dbEntityService;
-    private OrderEntity order;// например <h:inputText value="#{OrderManger.order.customerName}
+    private OrderEntity order;
     private List<OrderPositionEntity> availablePositions;
     private double orderPositionsPrice;
     @Value("${n}") //todo проверить на корректность??
-    private int n = 3;
+    private int n;
     @Value("${deliveryPrice}")
-    private double deliveryPrice = 50;
+    private double deliveryPrice;
     @Value("${x}")
-    private double x = 100;
+    private double x;
 
     //инициализируем позиции заказа
     @PostConstruct

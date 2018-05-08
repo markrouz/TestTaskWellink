@@ -7,36 +7,49 @@
       xmlns:rich = "http://richfaces.org/rich">
 
 <h:head>
-    <title>Internet cafe</title>
+    <title>#{msg['application.name']}</title>
 </h:head>
 
 <h:body>
     <h:form>
-        <rich:dataTable value = "#{orderManager.availablePositions}" var = "orderPosition" >
+        <h:panelGrid>
+            <rich:dataTable value = "#{orderManager.availablePositions}" var = "orderPosition" >
 
-            <rich:column>
-                <f:facet name="header">Заказать</f:facet>
-                <h:selectBooleanCheckbox/>
-            </rich:column>
+                <rich:column>
+                    <f:facet name="header">#{msg['toOrder']}</f:facet>
+                    <h:selectBooleanCheckbox/>
+                </rich:column>
 
-            <rich:column>
-                <f:facet name = "header">Название</f:facet>
-                <h:outputText value = "#{orderPosition.coffee.name}"/>
-            </rich:column>
+                <rich:column>
+                    <f:facet name = "header">#{msg['name']}</f:facet>
+                    <h:outputText value = "#{orderPosition.coffee.name}"/>
+                </rich:column>
 
-            <rich:column>
-                <f:facet name = "header">Цена</f:facet>
-                <h:outputText value = "#{orderPosition.coffee.price}"/>
-            </rich:column>
+                <rich:column>
+                    <f:facet name = "header">#{msg['price']}</f:facet>
+                    <h:outputText value = "#{orderPosition.coffee.price}"/>
+                </rich:column>
 
-            <rich:column>
-                <f:facet name="header">Количество</f:facet>
-                <h:inputText value="#{orderPosition.numberOfCups}"/>
-            </rich:column>
+                <rich:column>
+                    <f:facet name="header">#{msg['quantity']}</f:facet>
+                    <h:inputText id="numberOfCups" value="#{orderPosition.numberOfCups}" validatorMessage="#{msg['validator.messages.numberOfCups']}">
+                        <f:validateLongRange minimum="0" maximum="50" for="numberOfCups"/>
+                    </h:inputText>
+                    <rich:message for="numberOfCups"/>
+                </rich:column>
 
-        </rich:dataTable>
+            </rich:dataTable>
 
-        <h:commandButton value="Заказать" action="#{orderManager.createOrder}"/>
+            <h:commandButton value="#{msg['toOrder']}" action="#{orderManager.createOrder}" style="float: right"/>
+        </h:panelGrid>
+
+        <h:panelGrid columns="2">
+            Language :
+            <h:selectOneMenu value="#{languageManager.localeCode}" onchange="submit()"
+                             valueChangeListener="#{languageManager.countryLocaleCodeChanged}">
+                <f:selectItems value="#{languageManager.countriesInMap}" />
+            </h:selectOneMenu>
+        </h:panelGrid>
     </h:form>
 </h:body>
 
