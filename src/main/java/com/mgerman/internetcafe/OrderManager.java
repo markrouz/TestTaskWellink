@@ -6,10 +6,13 @@ import com.mgerman.internetcafe.domain.OrderEntity;
 import com.mgerman.internetcafe.domain.OrderPositionEntity;
 import com.mgerman.internetcafe.service.DbEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -24,8 +27,11 @@ public class OrderManager {
     private OrderEntity order;// например <h:inputText value="#{OrderManger.order.customerName}
     private List<OrderPositionEntity> availablePositions;
     private double orderPositionsPrice;
+    @Value("${n}") //todo проверить на корректность??
     private int n = 3;
+    @Value("${deliveryPrice}")
     private double deliveryPrice = 50;
+    @Value("${x}")
     private double x = 100;
 
     //инициализируем позиции заказа
