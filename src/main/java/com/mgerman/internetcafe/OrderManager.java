@@ -9,8 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
@@ -50,13 +57,18 @@ public class OrderManager {
     }
 
     public String createOrder() {
-        order = new OrderEntity();
         List<OrderPositionEntity> orderPositions = new ArrayList<OrderPositionEntity>();
         for (OrderPositionEntity availablePosition: availablePositions) {
             if (availablePosition.getNumberOfCups() > 0) {
                 orderPositions.add(availablePosition);
             }
         }
+
+        if (orderPositions.size() == 0) {
+            return "orderSomethingPlease.xhtml";
+        }
+
+        order = new OrderEntity();
         order.setOrderPositions(orderPositions);
         order.setPrice(calculateOrderPrice());
         order.setDate(new Date());
