@@ -38,19 +38,11 @@ public class LanguageManager {
         this.localeCode = localeCode;
     }
 
-    //value change event listener
     public void countryLocaleCodeChanged(ValueChangeEvent e){
-
         String newLocaleValue = e.getNewValue().toString();
-
-        //zaloop country map to compare the locale code
         for (Map.Entry<String, Object> entry : countries.entrySet()) {
-
             if(entry.getValue().toString().equals(newLocaleValue)){
-
-                FacesContext.getCurrentInstance()
-                        .getViewRoot().setLocale((Locale)entry.getValue());
-
+                FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale)entry.getValue());
             }
         }
     }
