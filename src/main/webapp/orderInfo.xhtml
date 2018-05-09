@@ -15,7 +15,7 @@
 
             <div style="position: relative; display: inline-block" >
 
-                <rich:panel header="#{msg['yourOrder']}">
+                <rich:panel header="#{msg['yourOrder']}" style="float: right">
 
                     <rich:dataTable value = "#{orderManager.order.orderPositions}" var = "orderPosition">
 
@@ -38,22 +38,17 @@
                             <f:facet name="header">#{msg['total']}</f:facet>
                             <h:outputText value="#{orderPosition.orderPositionPrice}"/>
                         </rich:column>
-
                     </rich:dataTable>
 
-                    <!--<div style="float: right;" >-->
-                        <h:outputText style="float: right; font-size: large" value="#{msg['sum']}: #{orderManager.orderPositionsPrice}"/>
-                        <br/>
-                        <h:outputText style="float: right; font-size: large" value="#{msg['delivery']}: #{orderManager.orderPositionsPrice lt orderManager.x ? orderManager.deliveryPrice : msg['free']}"/>
-                        <br/>
-                        <h:outputText style="float: right; font-size: large" value="#{msg.total}: #{orderManager.order.price}"/>
-                        <br/>
-                        <br/>
-                    <!--</div>-->
+                    <h:panelGrid columns="1" style="float: right;">
+                        <h:outputText style="font-size: small" value="#{msg['sum']}: #{orderManager.orderPositionsPrice}"/>
+                        <h:outputText style="font-size: small" value="#{msg['delivery']}: #{orderManager.orderPositionsPrice lt orderManager.x ? orderManager.deliveryPrice : msg['free']}"/>
+                        <h:outputText style="font-size: small" value="#{msg.total}: #{orderManager.order.price}"/>
+                    </h:panelGrid>
                 </rich:panel>
 
                 <rich:panel header="#{msg['delivery']}">
-                    <h:panelGrid rowClasses="s1row" columns="3" columnClasses="wfcol1,wfcol2,wfcol3">
+                    <h:panelGrid columns="3">
                         <h:outputText value="#{msg['fullName']}:" />
                         <h:inputText id="fn" value="#{orderManager.order.customerName}" label="#{msg['fullName']}" required="true" requiredMessage="#{msg['validator.messages.fullName']}" />
                         <rich:message for="fn"/>
