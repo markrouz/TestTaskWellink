@@ -13,8 +13,6 @@ import java.util.Map;
 @Scope("session")
 public class LanguageManager {
 
-    private static final long serialVersionUID = 1L;
-
     private String localeCode;
 
     private static Map<String,Object> countries;
