@@ -15,7 +15,7 @@
 
             <div style="position: relative; display: inline-block" >
 
-                <rich:panel header="#{msg['yourOrder']}" style="float: right">
+                <rich:panel header="#{msg['yourOrder']}">
 
                     <rich:dataTable value = "#{orderManager.order.orderPositions}" var = "orderPosition">
 
@@ -38,13 +38,30 @@
                             <f:facet name="header">#{msg['total']}</f:facet>
                             <h:outputText value="#{orderPosition.orderPositionPrice}"/>
                         </rich:column>
+
+                        <f:facet name="footer">
+                            <rich:columnGroup>
+                                <rich:column/>
+                                <rich:column/>
+                                <rich:column>
+                                    <h:outputText style="float: right" value="#{msg['sum']}:"/>
+                                    <br/>
+                                    <h:outputText style="float: right" value="#{msg['delivery']}:"/>
+                                    <br/>
+                                    <h:outputText style="float: right" value="#{msg['total']}:"/>
+                                </rich:column>
+
+                                <rich:column>
+                                    <h:outputText value="#{orderManager.orderPositionsPrice}"/>
+                                    <br/>
+                                    <h:outputText value="#{orderManager.orderPositionsPrice lt orderManager.x ? orderManager.deliveryPrice : msg['free']}"/>
+                                    <br/>
+                                    <h:outputText value="#{orderManager.order.price}"/>
+                                </rich:column>
+                            </rich:columnGroup>
+                        </f:facet>
                     </rich:dataTable>
 
-                    <h:panelGrid columns="1" style="float: right;">
-                        <h:outputText style="font-size: small" value="#{msg['sum']}: #{orderManager.orderPositionsPrice}"/>
-                        <h:outputText style="font-size: small" value="#{msg['delivery']}: #{orderManager.orderPositionsPrice lt orderManager.x ? orderManager.deliveryPrice : msg['free']}"/>
-                        <h:outputText style="font-size: small" value="#{msg.total}: #{orderManager.order.price}"/>
-                    </h:panelGrid>
                 </rich:panel>
 
                 <rich:panel header="#{msg['delivery']}">
