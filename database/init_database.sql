@@ -2,23 +2,6 @@
 DROP DATABASE IF EXISTS internet_cafe;
 CREATE DATABASE internet_cafe;
 
-
-
-ALTER TABLE IF EXISTS "order_positions" DROP CONSTRAINT IF EXISTS "order_position_fk0";
-
-ALTER TABLE IF EXISTS "order_position_in_order" DROP CONSTRAINT IF EXISTS "order_position_in_order_fk0";
-
-ALTER TABLE IF EXISTS "order_position_in_order" DROP CONSTRAINT IF EXISTS "order_position_in_order_fk1";
-
-DROP TABLE IF EXISTS "coffee_types";
-
-DROP TABLE IF EXISTS "orders";
-
-DROP TABLE IF EXISTS "order_positions";
-
-DROP TABLE IF EXISTS "order_position_in_order";
-
-
 CREATE TABLE "coffee_types" (
 	"id" serial NOT NULL,
 	"name" TEXT NOT NULL UNIQUE,

@@ -4,6 +4,7 @@ import com.mgerman.internetcafe.domain.DbEntity;
 import com.mgerman.internetcafe.domain.OrderEntity;
 import com.mgerman.internetcafe.domain.OrderPositionEntity;
 import com.mgerman.internetcafe.service.DbEntityService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -19,6 +20,7 @@ import java.util.List;
 public class CrudTest {
 
     @Test
+    @Ignore //todo тестовая база
     public void test() {
         CoffeeEntity simpleBlackCoffee = new CoffeeEntity();
         simpleBlackCoffee.setName("BlackCoffee");
