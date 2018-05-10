@@ -14,9 +14,6 @@ public class OrderEntity implements DbEntity {
     private Double price;
     private List<OrderPositionEntity> orderPositions;
 
-    //todo non-argument constructor??
-    //todo serializable???
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

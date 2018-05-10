@@ -12,9 +12,6 @@ public class CoffeeEntity implements DbEntity {
     private boolean disabled;
     private List<OrderPositionEntity> orderPositionsInCoffee;
 
-    //todo non-argument constructor??
-    //todo serializable???
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

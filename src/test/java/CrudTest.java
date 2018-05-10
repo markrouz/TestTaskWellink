@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//todo тестовая база?
-//todo ну это плохой тест, его надо на отдельной базе делать
+
 public class CrudTest {
 
     @Test
@@ -34,11 +33,10 @@ public class CrudTest {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         //EntityDaoHibernateImpl entityDaoHibernate = (EntityDaoHibernateImpl) applicationContext.getBean("entityDaoHibernateImpl");
         DbEntityService dbEntityService = (DbEntityService) applicationContext.getBean("dbEntityService");
-        //todo попачечно сделать?
+
         dbEntityService.save(simpleBlackCoffee);
         dbEntityService.save(americanoCoffee);
 
-        //todo и все таки это такое себе (но зато типа без дублирования)
         List<DbEntity> coffeeEntities = dbEntityService.getAll("CoffeeEntity");
         assertNotNull(coffeeEntities);
         assertEquals(4, coffeeEntities.size());

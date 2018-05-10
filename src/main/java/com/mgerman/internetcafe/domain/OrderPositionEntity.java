@@ -9,12 +9,10 @@ import java.util.List;
 public class OrderPositionEntity implements DbEntity {
     private int id;
     private int numberOfCups;
-    private List<OrderEntity> orders;// todo может стоит переделать в Set?
+    private List<OrderEntity> orders;
     private CoffeeEntity coffee;
-    private double orderPositionPrice; // todo незамапленное поле??
+    private double orderPositionPrice;
 
-    //todo non-argument constructor??
-    //todo serializable???
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

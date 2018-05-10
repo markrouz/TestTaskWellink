@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 @Transactional
-// todo здесь типа бизнес логика ?
 public class DbEntityService {
 
     @Autowired

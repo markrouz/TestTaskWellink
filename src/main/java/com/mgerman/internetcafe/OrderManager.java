@@ -9,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
 
 
-//todo sql скрипт немного переделать (делать схему, а не новую бд)
 
 @Component
 @Scope("session")
@@ -26,14 +24,13 @@ public class OrderManager {
     private OrderEntity order;
     private List<OrderPositionEntity> availablePositions;
     private double orderPositionsPrice;
-    @Value("${n}") //todo проверить на корректность??
+    @Value("${n}")
     private int n;
     @Value("${deliveryPrice}")
     private double deliveryPrice;
     @Value("${x}")
     private double x;
 
-    //инициализируем позиции заказа
     @PostConstruct
     private void initOrderPositions() {
         availablePositions = new ArrayList<OrderPositionEntity>();
