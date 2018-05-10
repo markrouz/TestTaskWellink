@@ -53,7 +53,7 @@ public class OrderManager {
             }
         }
 
-        if (orderPositions.size() == 0) {
+        if (orderPositions.isEmpty()) {
             return "orderSomethingPlease.xhtml";
         }
 
