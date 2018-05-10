@@ -1,11 +1,10 @@
 package com.mgerman.internetcafe.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "coffee_types", schema = "public", catalog = "internet_cafe")
-public class CoffeeType implements DbEntity {
+public class CoffeeType {
     private int id;
     private String name;
     private Double price;

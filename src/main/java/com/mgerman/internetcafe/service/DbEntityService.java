@@ -1,12 +1,10 @@
-package com.mgerman.internetcafe.service;
+/*package com.mgerman.internetcafe.service;
 
-import com.mgerman.internetcafe.dao.EntityDao;
-import com.mgerman.internetcafe.domain.DbEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+        import org.springframework.stereotype.Service;
+        import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+        import java.util.List;
 
 @Service
 @Transactional
@@ -31,4 +29,4 @@ public class DbEntityService {
         return entityDao.getAll(entityName);
     }
 
-}
+}*/

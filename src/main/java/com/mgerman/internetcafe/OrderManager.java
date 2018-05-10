@@ -1,10 +1,10 @@
 package com.mgerman.internetcafe;
 
+import com.mgerman.internetcafe.dao.CoffeeTypeDao;
+import com.mgerman.internetcafe.dao.OrderDao;
 import com.mgerman.internetcafe.domain.CoffeeType;
-import com.mgerman.internetcafe.domain.DbEntity;
 import com.mgerman.internetcafe.domain.Order;
 import com.mgerman.internetcafe.domain.OrderPosition;
-import com.mgerman.internetcafe.service.DbEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -19,8 +19,12 @@ import java.util.*;
 @Scope("session")
 public class OrderManager {
 
+   /* @Autowired
+    private DbEntityService dbEntityService;*/
     @Autowired
-    private DbEntityService dbEntityService;
+    CoffeeTypeDao coffeeTypeDao;
+    @Autowired
+    OrderDao orderDao;
     private Order order;
     private List<OrderPosition> availablePositions;
     private double orderPositionsPrice;
@@ -35,13 +39,11 @@ public class OrderManager {
     private void initOrderPositions() {
         availablePositions = new ArrayList<OrderPosition>();
         //todo не вытаскивать из бд то, где disabled = true
-        List<DbEntity> coffeeEntitiesFromBb = dbEntityService.getAll("CoffeeType");
-        for(DbEntity coffeeEntity: coffeeEntitiesFromBb) {
-            if (((CoffeeType)coffeeEntity).isDisabled()) {
-                continue;
-            }
+       // List<DbEn> coffeeEntitiesFromBb = dbEntityService.getAll("CoffeeType");
+        List<CoffeeType> availableCoffeeTypes = coffeeTypeDao.getAllAvailableCoffeeTypes();
+        for(CoffeeType coffeeEntity: availableCoffeeTypes) {
             OrderPosition orderPosition = new OrderPosition();
-            orderPosition.setCoffeeType((CoffeeType) coffeeEntity);
+            orderPosition.setCoffeeType(coffeeEntity);
             availablePositions.add(orderPosition);
         }
     }
@@ -66,7 +68,7 @@ public class OrderManager {
     }
 
     public String saveOrder() {
-        dbEntityService.save(order);
+        orderDao.save(order);
         return "confirmOrder";
     }
 

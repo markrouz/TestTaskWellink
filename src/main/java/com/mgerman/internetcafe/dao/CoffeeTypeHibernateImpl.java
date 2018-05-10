@@ -1,50 +1,55 @@
 package com.mgerman.internetcafe.dao;
 
 
-import com.mgerman.internetcafe.domain.DbEntity;
+import com.mgerman.internetcafe.domain.CoffeeType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
 @Repository
-public class EntityDaoHibernateImpl implements EntityDao {
+@Transactional
+public class CoffeeTypeHibernateImpl implements CoffeeTypeDao {
 
     private SessionFactory sessionFactory;
 
-    public EntityDaoHibernateImpl() {
+    public CoffeeTypeHibernateImpl() {
 
     }
 
     @Autowired
-    public EntityDaoHibernateImpl(SessionFactory sessionFactory) {
+    public CoffeeTypeHibernateImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void save(DbEntity dbEntity) {
+    public void save(CoffeeType coffeeType) {
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(dbEntity);
+        session.saveOrUpdate(coffeeType);
     }
 
     @Override
-    public void update(DbEntity dbEntity) {
+    public void update(CoffeeType coffeeType) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(dbEntity);
+        session.update(coffeeType);
     }
 
     @Override
-    public void delete(DbEntity dbEntity) {
+    public void delete(CoffeeType coffeeType) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(dbEntity);
+        session.delete(coffeeType);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<DbEntity> getAll(String entityName) {
+    public List<CoffeeType> getAllAvailableCoffeeTypes() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from " + entityName).list();
+        return session.createQuery("from CoffeeType as ct where ct.disabled = false").list();
     }
+
+
 }

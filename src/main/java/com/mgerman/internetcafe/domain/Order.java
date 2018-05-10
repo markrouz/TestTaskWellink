@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders", schema = "public", catalog = "internet_cafe")
-public class Order implements DbEntity {
+public class Order {
     private int id;
     private Date date;
     private String customerName;

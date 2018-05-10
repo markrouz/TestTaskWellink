@@ -1,8 +1,7 @@
+/*
 import com.mgerman.internetcafe.domain.CoffeeType;
-import com.mgerman.internetcafe.domain.DbEntity;
 import com.mgerman.internetcafe.domain.Order;
 import com.mgerman.internetcafe.domain.OrderPosition;
-import com.mgerman.internetcafe.service.DbEntityService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -76,3 +75,4 @@ public class CrudTest {
 
 
 }
+*/
