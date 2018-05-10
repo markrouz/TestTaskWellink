@@ -58,3 +58,6 @@ INSERT INTO coffee_types(
 INSERT INTO coffee_types(
             name, price, disabled)
     VALUES ('espresso', 100, false);
+INSERT INTO coffee_types(
+        name, price, disabled)
+VALUES ('hide', 100, true);
