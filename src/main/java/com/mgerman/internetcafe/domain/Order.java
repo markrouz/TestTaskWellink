@@ -6,13 +6,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders", schema = "public", catalog = "internet_cafe")
-public class OrderEntity implements DbEntity {
+public class Order implements DbEntity {
     private int id;
     private Date date;
     private String customerName;
     private String address;
     private Double price;
-    private List<OrderPositionEntity> orderPositions;
+    private List<OrderPosition> orderPositions;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,7 +71,7 @@ public class OrderEntity implements DbEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrderEntity that = (OrderEntity) o;
+        Order that = (Order) o;
 
         if (id != that.id) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
@@ -98,11 +98,11 @@ public class OrderEntity implements DbEntity {
             joinColumns = { @JoinColumn(name = "order_id") },
             inverseJoinColumns = { @JoinColumn(name = "order_position_id") }
     )
-    public List<OrderPositionEntity> getOrderPositions() {
+    public List<OrderPosition> getOrderPositions() {
         return orderPositions;
     }
 
-    public void setOrderPositions(List<OrderPositionEntity> orderPositions) {
+    public void setOrderPositions(List<OrderPosition> orderPositions) {
         this.orderPositions = orderPositions;
     }
 }

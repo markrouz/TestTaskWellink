@@ -1,9 +1,9 @@
 package com.mgerman.internetcafe;
 
-import com.mgerman.internetcafe.domain.CoffeeEntity;
+import com.mgerman.internetcafe.domain.CoffeeType;
 import com.mgerman.internetcafe.domain.DbEntity;
-import com.mgerman.internetcafe.domain.OrderEntity;
-import com.mgerman.internetcafe.domain.OrderPositionEntity;
+import com.mgerman.internetcafe.domain.Order;
+import com.mgerman.internetcafe.domain.OrderPosition;
 import com.mgerman.internetcafe.service.DbEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +21,8 @@ public class OrderManager {
 
     @Autowired
     private DbEntityService dbEntityService;
-    private OrderEntity order;
-    private List<OrderPositionEntity> availablePositions;
+    private Order order;
+    private List<OrderPosition> availablePositions;
     private double orderPositionsPrice;
     @Value("${n}")
     private int n;
@@ -33,21 +33,22 @@ public class OrderManager {
 
     @PostConstruct
     private void initOrderPositions() {
-        availablePositions = new ArrayList<OrderPositionEntity>();
-        List<DbEntity> coffeeEntitiesFromBb = dbEntityService.getAll("CoffeeEntity");
+        availablePositions = new ArrayList<OrderPosition>();
+        //todo не вытаскивать из бд то, где disabled = true
+        List<DbEntity> coffeeEntitiesFromBb = dbEntityService.getAll("CoffeeType");
         for(DbEntity coffeeEntity: coffeeEntitiesFromBb) {
-            if (((CoffeeEntity)coffeeEntity).isDisabled()) {
+            if (((CoffeeType)coffeeEntity).isDisabled()) {
                 continue;
             }
-            OrderPositionEntity orderPositionEntity = new OrderPositionEntity();
-            orderPositionEntity.setCoffee((CoffeeEntity) coffeeEntity);
-            availablePositions.add(orderPositionEntity);
+            OrderPosition orderPosition = new OrderPosition();
+            orderPosition.setCoffeeType((CoffeeType) coffeeEntity);
+            availablePositions.add(orderPosition);
         }
     }
 
     public String createOrder() {
-        List<OrderPositionEntity> orderPositions = new ArrayList<OrderPositionEntity>();
-        for (OrderPositionEntity availablePosition: availablePositions) {
+        List<OrderPosition> orderPositions = new ArrayList<OrderPosition>();
+        for (OrderPosition availablePosition: availablePositions) {
             if (availablePosition.getNumberOfCups() > 0) {
                 orderPositions.add(availablePosition);
             }
@@ -57,7 +58,7 @@ public class OrderManager {
             return "orderSomethingPlease.xhtml";
         }
 
-        order = new OrderEntity();
+        order = new Order();
         order.setOrderPositions(orderPositions);
         order.setPrice(calculateOrderPrice());
         order.setDate(new Date());
@@ -76,8 +77,8 @@ public class OrderManager {
 
     private void calculateOrderPositionsPrice() {
         orderPositionsPrice = 0;
-        for(OrderPositionEntity orderPosition: order.getOrderPositions()) {
-            double coffeePrice = orderPosition.getCoffee().getPrice();
+        for(OrderPosition orderPosition: order.getOrderPositions()) {
+            double coffeePrice = orderPosition.getCoffeeType().getPrice();
             int numberOfCups = orderPosition.getNumberOfCups();
             double positionPrice = numberOfCups * coffeePrice - (numberOfCups / n) * coffeePrice;
             orderPosition.setOrderPositionPrice(positionPrice);
@@ -86,19 +87,19 @@ public class OrderManager {
     }
 
     //getters and setters
-    public List<OrderPositionEntity> getAvailablePositions() {
+    public List<OrderPosition> getAvailablePositions() {
         return availablePositions;
     }
 
-    public void setAvailablePositions(List<OrderPositionEntity> availablePositions) {
+    public void setAvailablePositions(List<OrderPosition> availablePositions) {
         this.availablePositions = availablePositions;
     }
 
-    public OrderEntity getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(OrderEntity order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
