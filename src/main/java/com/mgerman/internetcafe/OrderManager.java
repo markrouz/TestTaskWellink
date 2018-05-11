@@ -1,10 +1,10 @@
 package com.mgerman.internetcafe;
 
-import com.mgerman.internetcafe.dao.CoffeeTypeDao;
 import com.mgerman.internetcafe.dao.OrderDao;
 import com.mgerman.internetcafe.domain.CoffeeType;
 import com.mgerman.internetcafe.domain.Order;
 import com.mgerman.internetcafe.domain.OrderPosition;
+import com.mgerman.internetcafe.service.CoffeeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -19,12 +19,10 @@ import java.util.*;
 @Scope("session")
 public class OrderManager {
 
-   /* @Autowired
-    private DbEntityService dbEntityService;*/
     @Autowired
-    CoffeeTypeDao coffeeTypeDao;
+    CoffeeTypeService coffeeTypeService;
     @Autowired
-    OrderDao orderDao;
+    OrderDao orderService;
     private Order order;
     private List<OrderPosition> availablePositions;
     private double orderPositionsPrice;
@@ -38,9 +36,7 @@ public class OrderManager {
     @PostConstruct
     private void initOrderPositions() {
         availablePositions = new ArrayList<OrderPosition>();
-        //todo не вытаскивать из бд то, где disabled = true
-       // List<DbEn> coffeeEntitiesFromBb = dbEntityService.getAll("CoffeeType");
-        List<CoffeeType> availableCoffeeTypes = coffeeTypeDao.getAllAvailableCoffeeTypes();
+        List<CoffeeType> availableCoffeeTypes = coffeeTypeService.getAllAvailableCoffeeTypes();
         for(CoffeeType coffeeEntity: availableCoffeeTypes) {
             OrderPosition orderPosition = new OrderPosition();
             orderPosition.setCoffeeType(coffeeEntity);
@@ -68,7 +64,7 @@ public class OrderManager {
     }
 
     public String saveOrder() {
-        orderDao.save(order);
+        orderService.save(order);
         return "confirmOrder";
     }
 

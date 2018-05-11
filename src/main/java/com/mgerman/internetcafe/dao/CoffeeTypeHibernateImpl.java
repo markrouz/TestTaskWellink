@@ -6,13 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
 
 @Repository
-@Transactional
 public class CoffeeTypeHibernateImpl implements CoffeeTypeDao {
 
     private SessionFactory sessionFactory;
@@ -50,6 +48,4 @@ public class CoffeeTypeHibernateImpl implements CoffeeTypeDao {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from CoffeeType as ct where ct.disabled = false").list();
     }
-
-
 }
