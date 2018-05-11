@@ -5,6 +5,7 @@ import com.mgerman.internetcafe.domain.CoffeeType;
 import com.mgerman.internetcafe.domain.Order;
 import com.mgerman.internetcafe.domain.OrderPosition;
 import com.mgerman.internetcafe.service.CoffeeTypeService;
+import com.mgerman.internetcafe.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -22,7 +23,7 @@ public class OrderManager {
     @Autowired
     CoffeeTypeService coffeeTypeService;
     @Autowired
-    OrderDao orderService;
+    OrderService orderService;
     private Order order;
     private List<OrderPosition> availablePositions;
     private double orderPositionsPrice;
