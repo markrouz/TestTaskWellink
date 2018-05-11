@@ -28,20 +28,17 @@ public class OrderPositionDaoHibernateImpl implements OrderPositionDao {
 
     @Override
     public void save(OrderPosition orderPosition) {
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(orderPosition);
+        getCurrentSession().saveOrUpdate(orderPosition);
     }
 
     @Override
     public void update(OrderPosition orderPosition) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(orderPosition);
+        getCurrentSession().update(orderPosition);
     }
 
     @Override
     public void delete(OrderPosition orderPosition) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(orderPosition);
+        getCurrentSession().delete(orderPosition);
     }
 
     @Override
