@@ -1,6 +1,5 @@
 package com.mgerman.internetcafe;
 
-import com.mgerman.internetcafe.dao.OrderDao;
 import com.mgerman.internetcafe.domain.CoffeeType;
 import com.mgerman.internetcafe.domain.Order;
 import com.mgerman.internetcafe.domain.OrderPosition;

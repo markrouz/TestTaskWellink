@@ -11,33 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CoffeeTypeDaoHibernateImpl implements CoffeeTypeDao {
-
-    private SessionFactory sessionFactory;
-
-    public CoffeeTypeDaoHibernateImpl() {
-
-    }
-
-    @Autowired
-    public CoffeeTypeDaoHibernateImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Override
-    public void save(CoffeeType coffeeType) {
-        getCurrentSession().saveOrUpdate(coffeeType);
-    }
-
-    @Override
-    public void update(CoffeeType coffeeType) {
-        getCurrentSession().update(coffeeType);
-    }
-
-    @Override
-    public void delete(CoffeeType coffeeType) {
-        getCurrentSession().delete(coffeeType);
-    }
+public class CoffeeTypeDaoHibernateImpl extends AbstractHibernateDao<CoffeeType> implements CoffeeTypeDao {
 
     @Override
     @SuppressWarnings("unchecked")
@@ -45,7 +19,4 @@ public class CoffeeTypeDaoHibernateImpl implements CoffeeTypeDao {
        return getCurrentSession().createQuery("from CoffeeType as ct where ct.disabled = false").list();
     }
 
-    private Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
 }
