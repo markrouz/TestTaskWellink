@@ -92,7 +92,7 @@ public class Order {
         return result;
     }
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @OneToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "order_position_in_order",
             joinColumns = { @JoinColumn(name = "order_id") },
