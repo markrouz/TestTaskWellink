@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class OrderPositionDaoHibernateImpl implements OrderPositionDao {
 
@@ -18,6 +20,10 @@ public class OrderPositionDaoHibernateImpl implements OrderPositionDao {
     @Autowired
     public OrderPositionDaoHibernateImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    private Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
     }
 
     @Override
@@ -36,5 +42,11 @@ public class OrderPositionDaoHibernateImpl implements OrderPositionDao {
     public void delete(OrderPosition orderPosition) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(orderPosition);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<OrderPosition> getAll() {
+        return getCurrentSession().createQuery("from OrderPosition ").list();
     }
 }

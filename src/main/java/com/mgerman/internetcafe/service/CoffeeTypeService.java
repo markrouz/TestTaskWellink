@@ -1,6 +1,8 @@
 package com.mgerman.internetcafe.service;
 
 import com.mgerman.internetcafe.dao.CoffeeTypeDao;
+import com.mgerman.internetcafe.dao.CollectionEntityDao;
+import com.mgerman.internetcafe.dao.CommonEntityDao;
 import com.mgerman.internetcafe.domain.CoffeeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,6 @@ public class CoffeeTypeService {
     }
 
     public List<CoffeeType> getAllAvailableCoffeeTypes() {
-        return coffeeTypeDao.getAllAvailableCoffeeTypes();
+        return coffeeTypeDao.getAll();
     }
 }

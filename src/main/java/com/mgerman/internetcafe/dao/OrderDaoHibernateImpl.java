@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class OrderDaoHibernateImpl implements OrderDao {
 
@@ -20,22 +22,28 @@ public class OrderDaoHibernateImpl implements OrderDao {
         this.sessionFactory = sessionFactory;
     }
 
+    private org.hibernate.classic.Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
+    }
+
     @Override
     public void save(Order order) {
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(order);
+        getCurrentSession().saveOrUpdate(order);
     }
 
     @Override
     public void update(Order order) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(order);
+        getCurrentSession().update(order);
     }
 
     @Override
     public void delete(Order order) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(order);
+        getCurrentSession().delete(order);
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Order> getAll() {
+        return getCurrentSession().createQuery("from Order").list();
+    }
 }
