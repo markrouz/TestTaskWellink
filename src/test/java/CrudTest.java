@@ -1,9 +1,7 @@
-import com.mgerman.internetcafe.dao.EntityDaoHibernateImpl;
-import com.mgerman.internetcafe.domain.CoffeeEntity;
-import com.mgerman.internetcafe.domain.DbEntity;
-import com.mgerman.internetcafe.domain.OrderEntity;
-import com.mgerman.internetcafe.domain.OrderPositionEntity;
-import com.mgerman.internetcafe.service.DbEntityService;
+/*
+import com.mgerman.internetcafe.domain.CoffeeType;
+import com.mgerman.internetcafe.domain.Order;
+import com.mgerman.internetcafe.domain.OrderPosition;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -22,58 +20,59 @@ public class CrudTest {
     @Test
     @Ignore //todo тестовая база
     public void test() {
-        CoffeeEntity simpleBlackCoffee = new CoffeeEntity();
-        simpleBlackCoffee.setName("BlackCoffee");
-        simpleBlackCoffee.setPrice(100.0);
-        simpleBlackCoffee.setDisabled(false);
+        CoffeeType simpleBlackCoffeeType = new CoffeeType();
+        simpleBlackCoffeeType.setName("BlackCoffee");
+        simpleBlackCoffeeType.setPrice(100.0);
+        simpleBlackCoffeeType.setDisabled(false);
 
-        CoffeeEntity americanoCoffee = new CoffeeEntity();
-        americanoCoffee.setName("BlackCoffeeWithMilk");
-        americanoCoffee.setPrice(150.0);
-        americanoCoffee.setDisabled(false);
+        CoffeeType americanoCoffeeType = new CoffeeType();
+        americanoCoffeeType.setName("BlackCoffeeWithMilk");
+        americanoCoffeeType.setPrice(150.0);
+        americanoCoffeeType.setDisabled(false);
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         //EntityDaoHibernateImpl entityDaoHibernate = (EntityDaoHibernateImpl) applicationContext.getBean("entityDaoHibernateImpl");
         DbEntityService dbEntityService = (DbEntityService) applicationContext.getBean("dbEntityService");
 
-        dbEntityService.save(simpleBlackCoffee);
-        dbEntityService.save(americanoCoffee);
+        dbEntityService.save(simpleBlackCoffeeType);
+        dbEntityService.save(americanoCoffeeType);
 
-        List<DbEntity> coffeeEntities = dbEntityService.getAll("CoffeeEntity");
+        List<DbEntity> coffeeEntities = dbEntityService.getAll("CoffeeType");
         assertNotNull(coffeeEntities);
         assertEquals(4, coffeeEntities.size());
-        assertEquals(simpleBlackCoffee.getName(), ((CoffeeEntity) coffeeEntities.get(0)).getName());
-        assertEquals(americanoCoffee.getName(), ((CoffeeEntity) coffeeEntities.get(1)).getName());
+        assertEquals(simpleBlackCoffeeType.getName(), ((CoffeeType) coffeeEntities.get(0)).getName());
+        assertEquals(americanoCoffeeType.getName(), ((CoffeeType) coffeeEntities.get(1)).getName());
 
-        OrderPositionEntity orderPositionEntity = new OrderPositionEntity();
-        orderPositionEntity.setCoffee(americanoCoffee);
-        orderPositionEntity.setNumberOfCups(2);
+        OrderPosition orderPosition = new OrderPosition();
+        orderPosition.setCoffeeType(americanoCoffeeType);
+        orderPosition.setNumberOfCups(2);
 
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setCustomerName("Mark");
-        orderEntity.setAddress("Demakova");
-        orderEntity.setDate(new Date());
-        orderEntity.setPrice(1000.0);
+        Order order = new Order();
+        order.setCustomerName("Mark");
+        order.setAddress("Demakova");
+        order.setDate(new Date());
+        order.setPrice(1000.0);
 
-        List<OrderPositionEntity> orderPositions = new ArrayList<OrderPositionEntity>();
-        orderPositions.add(orderPositionEntity);
-        orderEntity.setOrderPositions(orderPositions);
-        dbEntityService.save(orderEntity);
+        List<OrderPosition> orderPositions = new ArrayList<OrderPosition>();
+        orderPositions.add(orderPosition);
+        order.setOrderPositions(orderPositions);
+        dbEntityService.save(order);
 
-        List<DbEntity> orderEntitiesFromDb = dbEntityService.getAll("OrderEntity");
-        assertEquals(orderEntity.getCustomerName(), ((OrderEntity)orderEntitiesFromDb.get(0)).getCustomerName());
+        List<DbEntity> orderEntitiesFromDb = dbEntityService.getAll("Order");
+        assertEquals(order.getCustomerName(), ((Order)orderEntitiesFromDb.get(0)).getCustomerName());
 
-        List<DbEntity> orderPositionsFromDb = dbEntityService.getAll("OrderPositionEntity");
-        assertEquals(orderEntity.getOrderPositions().get(0).getCoffee().getName(), ((OrderPositionEntity)orderPositionsFromDb.get(0)).getCoffee().getName());
+        List<DbEntity> orderPositionsFromDb = dbEntityService.getAll("OrderPosition");
+        assertEquals(order.getOrderPositions().get(0).getCoffeeType().getName(), ((OrderPosition)orderPositionsFromDb.get(0)).getCoffeeType().getName());
 
-        dbEntityService.delete(orderEntity);
+        dbEntityService.delete(order);
 
-        dbEntityService.delete(simpleBlackCoffee);
-        dbEntityService.delete(americanoCoffee);
-        coffeeEntities = dbEntityService.getAll("CoffeeEntity");
+        dbEntityService.delete(simpleBlackCoffeeType);
+        dbEntityService.delete(americanoCoffeeType);
+        coffeeEntities = dbEntityService.getAll("CoffeeType");
         assertEquals(0, coffeeEntities.size());
 
     }
 
 
 }
+*/

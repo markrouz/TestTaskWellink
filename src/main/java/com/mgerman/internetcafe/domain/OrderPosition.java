@@ -1,16 +1,14 @@
 package com.mgerman.internetcafe.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 @Entity
 @Table(name = "order_positions", schema = "public", catalog = "internet_cafe")
-public class OrderPositionEntity implements DbEntity {
+public class OrderPosition {
     private int id;
     private int numberOfCups;
-    private List<OrderEntity> orders;
-    private CoffeeEntity coffee;
+    private CoffeeType coffeeType;
     private double orderPositionPrice;
 
 
@@ -40,7 +38,7 @@ public class OrderPositionEntity implements DbEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrderPositionEntity that = (OrderPositionEntity) o;
+        OrderPosition that = (OrderPosition) o;
 
         if (id != that.id) return false;
         if (numberOfCups != that.numberOfCups) return false;
@@ -55,29 +53,15 @@ public class OrderPositionEntity implements DbEntity {
         return result;
     }
 
-    /*@ManyToMany(cascade = { CascadeType.ALL})
-    @JoinTable(
-            name = "order_position_in_order",
-            joinColumns = { @JoinColumn(name = "order_position_id") },
-            inverseJoinColumns = { @JoinColumn(name = "order_id") }
-    )*/
-    @ManyToMany(mappedBy = "orderPositions")
-    public List<OrderEntity> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<OrderEntity> orderPositionInOrders) {
-        this.orders = orderPositionInOrders;
-    }
 
     @ManyToOne
     @JoinColumn(name = "coffee_type_id", referencedColumnName = "id", nullable = false)
-    public CoffeeEntity getCoffee() {
-        return coffee;
+    public CoffeeType getCoffeeType() {
+        return coffeeType;
     }
 
-    public void setCoffee(CoffeeEntity coffeeTypesByCoffeeTypeId) {
-        this.coffee = coffeeTypesByCoffeeTypeId;
+    public void setCoffeeType(CoffeeType coffeeTypesByCoffeeTypeTypeId) {
+        this.coffeeType = coffeeTypesByCoffeeTypeTypeId;
     }
 
     @Transient

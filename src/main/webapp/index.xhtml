@@ -3,9 +3,7 @@
       xmlns:h = "http://java.sun.com/jsf/html"
       xmlns:f = "http://java.sun.com/jsf/core"
       xmlns:ui = "http://java.sun.com/jsf/facelets"
-      xmlns:a4j = "http://richfaces.org/a4j"
-      xmlns:rich = "http://richfaces.org/rich"
-      xmlns:ago = "http://xmlns.jcp.org/jsf/composite/customComponents">
+      xmlns:rich = "http://richfaces.org/rich">
 
 <h:head>
     <title>#{msg['application.name']}</title>
@@ -23,12 +21,12 @@
 
                 <rich:column>
                     <f:facet name = "header">#{msg['name']}</f:facet>
-                    <h:outputText value = "#{orderPosition.coffee.name}"/>
+                    <h:outputText value = "#{orderPosition.coffeeType.name}"/>
                 </rich:column>
 
                 <rich:column>
                     <f:facet name = "header">#{msg['price']}</f:facet>
-                    <h:outputText value = "#{orderPosition.coffee.price}"/>
+                    <h:outputText value = "#{orderPosition.coffeeType.price}"/>
                 </rich:column>
 
                 <rich:column>
@@ -44,7 +42,7 @@
             <h:commandButton value="#{msg['toOrder']}" action="#{orderManager.createOrder}" style="float: right"/>
         </h:panelGrid>
 
-       <ago:LangugagePanelItem/>
+       <ui:include src="resources/templates/LangugagePanelPage.xhtml"/>
     </h:form>
 
     <h:outputText value="* " style="color: red;"/>

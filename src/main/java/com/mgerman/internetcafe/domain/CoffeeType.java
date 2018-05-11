@@ -1,16 +1,14 @@
 package com.mgerman.internetcafe.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "coffee_types", schema = "public", catalog = "internet_cafe")
-public class CoffeeEntity implements DbEntity {
+public class CoffeeType {
     private int id;
     private String name;
     private Double price;
     private boolean disabled;
-    private List<OrderPositionEntity> orderPositionsInCoffee;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +56,7 @@ public class CoffeeEntity implements DbEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CoffeeEntity that = (CoffeeEntity) o;
+        CoffeeType that = (CoffeeType) o;
 
         if (id != that.id) return false;
         if (disabled != that.disabled) return false;
@@ -75,14 +73,5 @@ public class CoffeeEntity implements DbEntity {
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (disabled ? 1 : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "coffee")
-    public List<OrderPositionEntity> getOrderPositionsInCoffee() {
-        return orderPositionsInCoffee;
-    }
-
-    public void setOrderPositionsInCoffee(List<OrderPositionEntity> orderPositionsById) {
-        this.orderPositionsInCoffee = orderPositionsById;
     }
 }
