@@ -1,6 +1,5 @@
 package com.mgerman.internetcafe.dao;
 
-import com.mgerman.internetcafe.domain.CoffeeType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,9 @@ import java.util.List;
 
 @Repository
 public abstract class AbstractHibernateDao<T> implements CollectionEntityDao<T> {
+
+
+    private Class<T> clazz;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -28,10 +30,17 @@ public abstract class AbstractHibernateDao<T> implements CollectionEntityDao<T> 
         getCurrentSession().delete(entity);
     }
 
-
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<T> getAll() {
+        return getCurrentSession().createQuery("from " + clazz.getName()).list();
+    }
 
     protected Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
 
+    public final void setClazz( Class< T > clazzToSet ){
+        this.clazz = clazzToSet;
+    }
 }
